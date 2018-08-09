@@ -7,6 +7,8 @@
     <title>Document</title>
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <!-- Custom styles -->
     <link rel="stylesheet" href="./css/main.css">
 </head>
@@ -15,32 +17,65 @@
     <nav class="navbar navbar-light bg-warning">
         <a href="/" class="navbar-brand mx-auto">Fullstack JS Chat</a>
     </nav>
-    
-    <!-- Main container -->
-    <div class="container">
-        <div class="col-md-6 mt-4">
-            <!-- Chat box -->
-            <div class="card">
-                <!-- Title -->
-                <div class="card-header">
-                    <h4>Let's chat!</h4>
-                </div>
-                <!-- Main window -->
-                <div id="chat" class="card-body">
 
-                </div>
-                <!-- Chat Form -->
-                <form id="message-form" class="card-footer">
-                    <div class="input-group">
-                        <input type="text" id="message" class="form-control" autofocus>
-                        <div class="input-group-append ml-1">
-                            <button type="submit" class="btn btn-warning">Send</button> 
-                        </div>
-                    </div>
-                </form>
-            </div>
+    <!-- Login container -->
+    <div class="card col-md-4 mt-5 mx-auto" id="nickname-wrapper">
+        <div class="card-header">
+            <h3>Enter your username:</h3>
+        </div>
+        <p id="nickname-error"></p>
+        <div class="card-body">
+            <form id="nickname-form">
+                <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Enter your nickname" autofocus>
+
+                <button class="btn btn-warning btn-block mt-2">
+                    Login <i class="fa fa-location-arrow"></i>
+                </button>
+            </form>
         </div>
     </div>
+    <!-- Main container -->
+    <div id="content-wrapper" class="container mt-4">
+        <div class="row">  
+            <div class="col-md-6 offset-md-1">
+                <!-- Chat box -->
+                <div class="card">
+                    <!-- Title -->
+                    <div class="card-header">
+                        <h4>Let's chat!</h4>
+                    </div>
+                    <!-- Main window -->
+                    <div id="chat" class="card-body">
+
+                    </div>
+                    <!-- Chat Form -->
+                    <form id="message-form" class="card-footer">
+                        <div class="input-group">
+                            <input type="text" id="message" class="form-control" autofocus>
+                            <div class="input-group-append ml-1">
+                                <button type="submit" class="btn btn-warning">
+                                    Send <i class="fa fa-arrow-circle-right"></i>
+                                </button> 
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Users</h3>
+                        <div class="card-body">
+                            <div id="usernames">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
+
     <script
 			  src="http://code.jquery.com/jquery-3.3.1.min.js"
 			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
