@@ -71,6 +71,18 @@ $(() => {
     socket.on('whisper', data => {
         console.log('Whisper received: ', data);
         $chat.append(`<p class="whisper"><strong>${data.nickname}:</strong> ${data.message}</p>`);
-    })
+    });
+
+    // --> Handle old_msgs event (to retrieve conversations on connection)
+    socket.on('old_msgs', msgs => {
+        console.log('Old messages event received!', msgs);
+        for(let i = msgs.length - 1; i >= 0; i--) {
+            displayMsg(msgs[i]);
+        }
+    });
+
+    function displayMsg(data) {
+        $chat.append(`<strong>${data.nickname}:</strong> ${data.message}<br />`);
+    }
 
 });

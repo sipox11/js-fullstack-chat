@@ -1,14 +1,20 @@
+const Chat = require('./models/Chat');
+
 module.exports = function(io) {
     
     let users = {
 
     };
 
-    io.on('connection', socket => {
+    io.on('connection', async socket => {
         console.log('New client connected!');
 
+        let messages = await Chat.find().sort({ created_at: -1 }).limit(10);
+        console.log('Old messages successfully retrieved!');
+        socket.emit('old_msgs', messages);
+
         // Handle incoming messages
-        socket.on('send_message', (data, callback) => {
+        socket.on('send_message', async (data, callback) => {
             console.log('Data received: ', data);
             // Process message looking for special commands
             let cleanData = data.trim();
@@ -34,12 +40,21 @@ module.exports = function(io) {
                     callback('ERROR! Please enter your message!');
                 }
             } else {
+                // Save msg to DB
+                let newMessage = new Chat({
+                    message: data,
+                    nickname: socket.nickname
+                });
+
+                await newMessage.save();
+                console.log('Data successfully saved!');
+
                 // Retransmit a message to all sockets
                 let msg = {
-                message: data,
-                nickname: socket.nickname
-            };
-            io.sockets.emit('new_message', msg);
+                    message: data,
+                    nickname: socket.nickname
+                };
+                io.sockets.emit('new_message', msg);
             }
         });
 
